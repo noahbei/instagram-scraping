@@ -13,7 +13,7 @@ const geckoDriverPath = 'C:/Windows/geckodriver.exe';
 const firefoxOptions = new firefox.Options();
 
 // Uncomment the following line if you want to run Firefox in headless mode
-// firefoxOptions.headless();
+ firefoxOptions.headless();
 
 // Set the path to the Firefox binary (optional)
 // firefoxOptions.setBinary('path/to/firefox');
@@ -42,16 +42,13 @@ let follower = {};
     await driver.sleep(1000);
     await driver.get("https://www.instagram.com/" + username + "/followers");
     await driver.sleep(4000);
-    const elements = await driver.findElements(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'));
+    const topContainer = await driver.findElement(By.css('div._aano :first-child'));
+    const elements = await topContainer.findElements(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'));
 
-    /* for (const element of elements) {
-      const text = await element.getText();
-      console.log(text);
-    } */
-    for (let i = 1; i < elements.length; i += 2) {
+    for (let i = 0; i < elements.length; i += 1) {
       const element = elements[i];
       const text = await element.getText();
-      console.log(`Element at index ${i}: ${text}`);
+      console.log(`Element at index ${i}: (${text})`);
     }
   }
   finally {

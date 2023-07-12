@@ -18,6 +18,7 @@ const firefoxOptions = new firefox.Options();
 // Set the path to the Firefox binary (optional)
 // firefoxOptions.setBinary('path/to/firefox');
 const followersArr = [];
+const followingArr = [];
 let follower = {};
 
 (async () => {
@@ -30,7 +31,7 @@ let follower = {};
   try {
     await driver.get("https://www.instagram.com");
     //for login page
-    const usernameField = await driver.wait(until.elementLocated(By.name('username')), 10000, "Loggin page failed to load in time");
+    const usernameField = await driver.wait(until.elementLocated(By.name('username')), 10000, "Login page failed to load in time");
     await usernameField.sendKeys(username);
     const passwordField = await driver.findElement(By.name("password"));
     await passwordField.sendKeys(password);
@@ -50,7 +51,7 @@ let follower = {};
     //check to make sure numbers are correct
     console.log(`followers: ${numFollowers}, following: ${numFollowing}`);
 
-    //open up follower window
+    //open follower window
     await driver.get("https://www.instagram.com/" + username + "/followers");
     await driver.sleep(6000);
 
@@ -59,49 +60,64 @@ let follower = {};
     const topContainer = await driver.findElement(By.css('div._aano :first-child'));
     let elements = await topContainer.findElements(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'));
 
-    const scrollDiv = async () => {
+    const scrollDiv = async (numUsers) => {
       try {
-        if (elements.length >= numFollowers)
+        if (elements.length >= numUsers)
           return;
         await driver.executeScript("arguments[0].scrollBy(0, 200)", divContainer);
         elements = await topContainer.findElements(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'));
         await driver.sleep(10000);
-        await scrollDiv();
+        await scrollDiv(numUsers);
       }
       catch (error) {
         console.error("Maybe items did not load. Error occurred during scrolling: ", error);
       }
-      
     }
     // scroll down to reveal all followers
-    await scrollDiv();
+    await scrollDiv(numFollowers);
 
-    //push followers to array
-    for (let i = 0; i < elements.length; i += 2) {
-      const usernameElem = await elements[i];
-      const nameElem = await elements[i + 1];
-
-      let username = await usernameElem.getText();
-      username = username.split("\n")[0];
-      let name = await nameElem.getText();
-
-      const follower = {
-        username: username,
-        name: name
+    //add all followers to followers array
+    const pushToUserArray = async (array) => {
+      for (let i = 0; i < elements.length; i += 2) {
+        const usernameElem = await elements[i];
+        const nameElem = await elements[i + 1];
+  
+        let username = await usernameElem.getText();
+        username = username.split("\n")[0];
+        let name = await nameElem.getText();
+  
+        const follower = {
+          username: username,
+          name: name
+        };
+        await array.push(follower);
       }
+    }
 
-      followersArr.push(follower);
-    }
-    /* 
-    // print followers for testing
-    for (let i = 0; i < followersArr.length; i++) {
-      console.log(`username: ${followersArr[i].username}, name: ${followersArr[i].name}`)
-    }
-    */
+    await pushToUserArray(followersArr);
+
+    //open following window
+    await driver.get("https://www.instagram.com/" + username + "/following");
+    await driver.sleep(6000);
+
+    //reset the elements for followingArr
+    elements = await topContainer.findElements(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'));
+
+    // scroll down to reveal all following
+    await scrollDiv(numFollowing);
+
+    //push following to array
+    await pushToUserArray(followingArr)
+    await driver.sleep(2000);
+
   } 
   finally {
-    console.log(followersArr)
+    console.log("followers:\n" + JSON.stringify(followersArr, null, 2));
+    console.log("\n");
+    console.log("following:\n" + JSON.stringify(followingArr, null, 2));
     driver.sleep(2000);
     driver.quit();
   }
 })();
+
+

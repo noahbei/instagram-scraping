@@ -45,9 +45,10 @@ let follower = {};
     const topContainer = await driver.findElement(By.css('div._aano :first-child'));
     const elements = await topContainer.findElements(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'));
 
-    for (let i = 0; i < elements.length; i += 1) {
-      const element = elements[i];
-      const text = await element.getText();
+    for (let i = 0; i < elements.length; i++) {
+      let element = await elements[i];
+      let text = await element.getText();
+      text = text.split("\n")[0];
       console.log(`Element at index ${i}: (${text})`);
     }
   }
@@ -56,7 +57,7 @@ let follower = {};
     setTimeout(e => {driver.quit()}, 200000);
   }
 })();
-setTimeout(() => {2 + 2}, 20000000)
+//setTimeout(() => {2 + 2}, 20000000)
 
 
 /* 

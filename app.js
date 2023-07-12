@@ -13,7 +13,7 @@ const geckoDriverPath = 'C:/Windows/geckodriver.exe';
 const firefoxOptions = new firefox.Options();
 
 // Uncomment the following line if you want to run Firefox in headless mode
- firefoxOptions.headless();
+// firefoxOptions.headless();
 
 // Set the path to the Firefox binary (optional)
 // firefoxOptions.setBinary('path/to/firefox');
@@ -36,15 +36,47 @@ let follower = {};
     await passwordField.sendKeys(password);
     const submitButton = await driver.wait(until.elementLocated(By.css("[type='submit']")), 10000, "Could not find Log in button");
     await submitButton.click();
-
     await driver.sleep(2000);
-    await driver.get("https://www.instagram.com/" + username + "/");
-    await driver.sleep(1000);
-    await driver.get("https://www.instagram.com/" + username + "/followers");
-    await driver.sleep(4000);
-    const topContainer = await driver.findElement(By.css('div._aano :first-child'));
-    const elements = await topContainer.findElements(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'));
 
+    //navigate to profile page
+    await driver.get("https://www.instagram.com/" + username + "/");
+
+    //get number of followers and following
+    await driver.wait(until.elementLocated(By.css("span._ac2a")), 10000, "Could not find number of followers or number of following");
+    const numbers = await driver.findElements(By.css('span._ac2a'));
+    const numFollowers = await numbers[1].getText();
+    const numFollowing = await numbers[2].getText();
+    await driver.sleep(2000);
+    //check to make sure numbers are correct
+    console.log(`followers: ${numFollowers}, following: ${numFollowing}`);
+
+    //open up follower window
+    await driver.get("https://www.instagram.com/" + username + "/followers");
+    await driver.sleep(6000);
+
+    //initialize elements
+    const divContainer = await driver.findElement(By.css('div._aano'));
+    const topContainer = await driver.findElement(By.css('div._aano :first-child'));
+    let elements = await topContainer.findElements(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'));
+
+    const scrollDiv = async () => {
+      try {
+        if (elements.length >= numFollowers)
+          return;
+        await driver.executeScript("arguments[0].scrollBy(0, 200)", divContainer);
+        elements = await topContainer.findElements(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'));
+        await driver.sleep(10000);
+        await scrollDiv();
+      }
+      catch (error) {
+        console.error("Maybe items did not load. Error occurred during scrolling: ", error);
+      }
+      
+    }
+    // scroll down to reveal all followers
+    await scrollDiv();
+
+    //push followers to array
     for (let i = 0; i < elements.length; i += 2) {
       const usernameElem = await elements[i];
       const nameElem = await elements[i + 1];
@@ -60,28 +92,16 @@ let follower = {};
 
       followersArr.push(follower);
     }
+    /* 
+    // print followers for testing
     for (let i = 0; i < followersArr.length; i++) {
       console.log(`username: ${followersArr[i].username}, name: ${followersArr[i].name}`)
     }
-  }
+    */
+  } 
   finally {
     console.log(followersArr)
-    setTimeout(e => {driver.quit()}, 200000);
+    driver.sleep(2000);
+    driver.quit();
   }
 })();
-//setTimeout(() => {2 + 2}, 20000000)
-
-
-/* 
-document.querySelectorAll("span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft").forEach((item, index) => {
-    //0, 2, 4, usernames
-    if (index % 2 === 0) {
-        follower = {};
-        follower.username = item.querySelector("div > div > div > a > span > div").textContent;
-    }
-    //1, 3, 5 names
-    else {
-        follower.name = item.textContent;
-        followersArr.push(follower);
-    }
-}); */

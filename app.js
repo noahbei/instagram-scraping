@@ -45,11 +45,23 @@ let follower = {};
     const topContainer = await driver.findElement(By.css('div._aano :first-child'));
     const elements = await topContainer.findElements(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'));
 
-    for (let i = 0; i < elements.length; i++) {
-      let element = await elements[i];
-      let text = await element.getText();
-      text = text.split("\n")[0];
-      console.log(`Element at index ${i}: (${text})`);
+    for (let i = 0; i < elements.length; i += 2) {
+      const usernameElem = await elements[i];
+      const nameElem = await elements[i + 1];
+
+      let username = await usernameElem.getText();
+      username = username.split("\n")[0];
+      let name = await nameElem.getText();
+
+      const follower = {
+        username: username,
+        name: name
+      }
+
+      followersArr.push(follower);
+    }
+    for (let i = 0; i < followersArr.length; i++) {
+      console.log(`username: ${followersArr[i].username}, name: ${followersArr[i].name}`)
     }
   }
   finally {

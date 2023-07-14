@@ -35,13 +35,13 @@ let follower = {};
     await driver.get("https://www.instagram.com");
     //for login page
     const usernameField = await driver.wait(until.elementLocated(By.name('username')), 10000, "Login page failed to load in time, could not find username field");
-    driver.sleep(1000);
+    await driver.sleep(1000);
     await usernameField.sendKeys(username);
     const  passwordField = await driver.wait(until.elementLocated(By.name('password')), 10000, "could not find password field");
-    driver.sleep(1000);
+    await driver.sleep(1000);
     await passwordField.sendKeys(password);
     const submitButton = await driver.wait(until.elementLocated(By.css("[type='submit']")), 10000, "Could not find Log in button");
-    driver.sleep(2000);
+    await driver.sleep(2000);
     await submitButton.click();
     await driver.sleep(2000);
 
@@ -58,7 +58,7 @@ let follower = {};
     console.log(`followers: ${numFollowers}, following: ${numFollowing}`);
 
     //open follower window
-    await driver.get("https://www.instagram.com/" + username + "/followers");
+    await numbers[1].click();
     await driver.sleep(6000);
 
     //initialize elements
@@ -108,8 +108,13 @@ let follower = {};
 
     await pushToUserArray(followersArr);
 
+    //close followers window
+    let closeButton = await findElement(By.css(("[aria-label='Close']")))
+    await closeButton.click();
+    await driver.sleep(2000);
+
     //open following window
-    await driver.get("https://www.instagram.com/" + username + "/following");
+    await numbers[2].click();
     await driver.sleep(6000);
 
     //maybe need to go back to insta
@@ -130,8 +135,8 @@ let follower = {};
     console.log("followers:\n" + JSON.stringify(followersArr, null, 2));
     console.log("\n");
     console.log("following:\n" + JSON.stringify(followingArr, null, 2));
-    driver.sleep(2000);
-    driver.quit();
+    await driver.sleep(2000);
+    await driver.quit();
   }
 })();
 

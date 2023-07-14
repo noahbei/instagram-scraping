@@ -85,9 +85,9 @@ let follower = {};
       try {
         if ((elements.length)/2 >= numUsers)
           return;
-        await driver.executeScript("arguments[0].scrollBy(0, 200)", divContainer);
+        await driver.executeScript("arguments[0].scrollBy(0, 600)", divContainer);
         elements = await topContainer.findElements(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'));
-        await driver.sleep(10000);
+        await driver.sleep(5000);
         await scrollDiv(numUsers);
       }
       catch (error) {
@@ -137,8 +137,8 @@ let follower = {};
     divContainer = await driver.findElement(By.css('div._aano'));
     topContainer = await driver.findElement(By.css('div._aano :first-child'));
     await driver.wait(until.elementLocated(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'), 10000, "didn't find element array for following"))
-    elements = await driver.findElements(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'));
-    elements.splice(0, 10);
+    elements = await topContainer.findElements(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'));
+    //elements.splice(0, 10);
 
     // scroll down to reveal all following
     await scrollDiv(numFollowing);

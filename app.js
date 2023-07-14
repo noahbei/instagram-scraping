@@ -4,10 +4,13 @@ const firefox = require('selenium-webdriver/firefox');
 //const username = "";
 //const password = "";
 
-//test account
+//test account 1
 const username = ""
 const password = ""
 
+//test account 2
+//const username = ""
+//const password = "23"
 
 const geckoDriverPath = 'C:/Windows/geckodriver.exe';
 const firefoxOptions = new firefox.Options();
@@ -31,11 +34,14 @@ let follower = {};
   try {
     await driver.get("https://www.instagram.com");
     //for login page
-    const usernameField = await driver.wait(until.elementLocated(By.name('username')), 10000, "Login page failed to load in time");
+    const usernameField = await driver.wait(until.elementLocated(By.name('username')), 10000, "Login page failed to load in time, could not find username field");
+    driver.sleep(1000);
     await usernameField.sendKeys(username);
-    const passwordField = await driver.findElement(By.name("password"));
+    const  passwordField = await driver.wait(until.elementLocated(By.name('password')), 10000, "could not find password field");
+    driver.sleep(1000);
     await passwordField.sendKeys(password);
     const submitButton = await driver.wait(until.elementLocated(By.css("[type='submit']")), 10000, "Could not find Log in button");
+    driver.sleep(2000);
     await submitButton.click();
     await driver.sleep(2000);
 
@@ -84,7 +90,13 @@ let follower = {};
   
         let username = await usernameElem.getText();
         username = username.split("\n")[0];
-        let name = await nameElem.getText();
+        let name;
+        try {
+          name = await nameElem.getText();
+        } catch (error) {
+          console.error("Could not retrieve name:", error);
+          name = "N/A";
+        }
   
         const follower = {
           username: username,
@@ -100,8 +112,11 @@ let follower = {};
     await driver.get("https://www.instagram.com/" + username + "/following");
     await driver.sleep(6000);
 
+    //maybe need to go back to insta
+    //also click following button, don't go to link
+    
     //reset the elements for followingArr
-    elements = await topContainer.findElements(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'));
+    elements = await driver.wait(until.elementLocated(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'), 10000, "didn't find element array for following"));
 
     // scroll down to reveal all following
     await scrollDiv(numFollowing);

@@ -83,14 +83,14 @@ let follower = {};
     //initialize elements
     let divContainer = await driver.findElement(By.css('div._aano'));
     let topContainer = await driver.findElement(By.css('div._aano :first-child'));
-    let elements = await topContainer.findElements(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'));
+    let elements = await topContainer.findElements(By.css('.x9f619.xjbqb8w.x78zum5.x168nmei.x13lgxp2.x5pf9jr.xo71vjh.x1uhb9sk.x1plvlek.xryxfnj.x1iyjqo2.x2lwn1j.xeuugli.xdt5ytf.xqjyukv.x1cy8zhl.x1oa3qoh.x1nhvcw1'));
 
     const scrollDiv = async (numUsers) => {
       try {
-        if ((elements.length)/2 >= numUsers)
+        if (elements.length >= numUsers)
           return;
         await driver.executeScript("arguments[0].scrollBy(0, 600)", divContainer);
-        elements = await topContainer.findElements(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'));
+        elements = await topContainer.findElements(By.css('.x9f619.xjbqb8w.x78zum5.x168nmei.x13lgxp2.x5pf9jr.xo71vjh.x1uhb9sk.x1plvlek.xryxfnj.x1iyjqo2.x2lwn1j.xeuugli.xdt5ytf.xqjyukv.x1cy8zhl.x1oa3qoh.x1nhvcw1'));
         await driver.sleep(5000);
         await scrollDiv(numUsers);
       }
@@ -104,9 +104,14 @@ let follower = {};
     //add all followers to followers array
     //should maybe return array instead
     const pushToUserArray = async (array) => {
-      for (let i = 0; i < elements.length; i += 2) {
-        const usernameElem = await elements[i];
-        const nameElem = await elements[i + 1];
+      for (let i = 0; i < elements.length; i++) {
+        const usernameElem = await elements[i].findElement(By.css('span:first-child'));
+        let nameElem;
+        try {
+          nameElem = await elements[i].findElement(By.css('span:nth-child(2)'));
+        } catch (error) {
+          console.log("name not found");
+        }
   
         let username = await usernameElem.getText();
         username = username.split("\n")[0];
@@ -141,8 +146,7 @@ let follower = {};
     divContainer = await driver.findElement(By.css('div._aano'));
     topContainer = await driver.findElement(By.css('div._aano :first-child'));
     await driver.wait(until.elementLocated(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'), 10000, "didn't find element array for following"))
-    elements = await topContainer.findElements(By.css('span.x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft'));
-    //elements.splice(0, 10);
+    elements = await topContainer.findElements(By.css('.x9f619.xjbqb8w.x78zum5.x168nmei.x13lgxp2.x5pf9jr.xo71vjh.x1uhb9sk.x1plvlek.xryxfnj.x1iyjqo2.x2lwn1j.xeuugli.xdt5ytf.xqjyukv.x1cy8zhl.x1oa3qoh.x1nhvcw1'));
 
     // scroll down to reveal all following
     await scrollDiv(numFollowing);

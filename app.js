@@ -3,8 +3,8 @@ const { Builder, By, Key, until } = require('selenium-webdriver');
 const firefox = require('selenium-webdriver/firefox');
 const chrome = require('selenium-webdriver/chrome');
 
-////const username = "";
-const password = "";
+//const username = "";
+//const password = "";
 
 //test account 1
 const username = ""

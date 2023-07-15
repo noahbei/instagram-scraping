@@ -33,6 +33,9 @@ const chromeOptions = new chrome.Options();
 
 const followersArr = [];
 const followingArr = [];
+const overlapArr = [];
+let onlyInFollowers = [];
+let onlyInFollowing = [];
 let follower = {};
 
 (async () => {
@@ -147,25 +150,40 @@ let follower = {};
     //push following to array
     await pushToUserArray(followingArr)
     await driver.sleep(2000);
+
+    followingArr.forEach((following) => {
+    followersArr.forEach((follower) => {
+        if (following.username === follower.username)
+            overlapArr.push(following);
+      })
+    });
+
+    function compareArrays(array1, array2) {
+      const onlyInArray1 = array1.filter(obj => !array2.find(item => item.username === obj.username));
+      const onlyInArray2 = array2.filter(obj => !array1.find(item => item.username === obj.username));
+
+      return [onlyInArray1, onlyInArray2];
+    }
+
+    [onlyInFollowing, onlyInFollowers] = compareArrays(followingArr, followersArr);
   } 
   finally {
-    fs.writeFile('followers.json', JSON.stringify(followersArr, null, 2), (err) => {
-      if (err) {
-        console.error('Error writing followers file:', err);
-      } else {
-        console.log('Followers file has been written successfully.');
-      }
-    });
-    fs.writeFile('following.json', JSON.stringify(followingArr, null, 2), (err) => {
-      if (err) {
-        console.error('Error writing following file:', err);
-      } else {
-        console.log('Following file has been written successfully.');
-      }
-    });
+    const writeFile = (name, array) => {
+      fs.writeFile(name + '.json', JSON.stringify(array, null, 2), (err) => {
+        if (err) {
+          console.error('Error writing followers file:', err);
+        } else {
+          console.log('Followers file has been written successfully.');
+        }
+      });
+    }
+    writeFile('followers', followersArr);
+    writeFile('following', followingArr);
+    writeFile('overlap', overlapArr);
+    writeFile('onlyInFollowing', onlyInFollowing);
+    writeFile('onlyInFollowers', onlyInFollowers);
+
     await driver.sleep(2000);
     await driver.quit();
   }
 })();
-
-

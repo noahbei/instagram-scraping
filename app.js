@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { Builder, By, Key, until } = require('selenium-webdriver');
 const firefox = require('selenium-webdriver/firefox');
 const chrome = require('selenium-webdriver/chrome');
@@ -148,9 +149,20 @@ let follower = {};
     await driver.sleep(2000);
   } 
   finally {
-    console.log("followers:\n" + JSON.stringify(followersArr, null, 2));
-    console.log("\n");
-    console.log("following:\n" + JSON.stringify(followingArr, null, 2));
+    fs.writeFile('followers.json', JSON.stringify(followersArr, null, 2), (err) => {
+      if (err) {
+        console.error('Error writing followers file:', err);
+      } else {
+        console.log('Followers file has been written successfully.');
+      }
+    });
+    fs.writeFile('following.json', JSON.stringify(followingArr, null, 2), (err) => {
+      if (err) {
+        console.error('Error writing following file:', err);
+      } else {
+        console.log('Following file has been written successfully.');
+      }
+    });
     await driver.sleep(2000);
     await driver.quit();
   }

@@ -3,8 +3,8 @@ const { Builder, By, Key, until } = require('selenium-webdriver');
 const firefox = require('selenium-webdriver/firefox');
 const chrome = require('selenium-webdriver/chrome');
 
-//const username = "";
-//const password = "";
+////const username = "";
+const password = "";
 
 //test account 1
 const username = ""
@@ -89,9 +89,9 @@ let follower = {};
       try {
         if (elements.length >= numUsers)
           return;
-        await driver.executeScript("arguments[0].scrollBy(0, 600)", divContainer);
+        await driver.executeScript("arguments[0].scrollBy(0, 1200)", divContainer);
         elements = await topContainer.findElements(By.css('.x9f619.xjbqb8w.x78zum5.x168nmei.x13lgxp2.x5pf9jr.xo71vjh.x1uhb9sk.x1plvlek.xryxfnj.x1iyjqo2.x2lwn1j.xeuugli.xdt5ytf.xqjyukv.x1cy8zhl.x1oa3qoh.x1nhvcw1'));
-        await driver.sleep(5000);
+        await driver.sleep(4000);
         await scrollDiv(numUsers);
       }
       catch (error) {
@@ -100,6 +100,7 @@ let follower = {};
     }
     // scroll down to reveal all followers
     await scrollDiv(numFollowers);
+    //add a loaing bar showing progress
 
     //add all followers to followers array
     //should maybe return array instead

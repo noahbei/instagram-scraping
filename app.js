@@ -171,9 +171,9 @@ let follower = {};
     const writeFile = (name, array) => {
       fs.writeFile(name + '.json', JSON.stringify(array, null, 2), (err) => {
         if (err) {
-          console.error('Error writing followers file:', err);
+          console.error('Error writing', name, 'file:', err);
         } else {
-          console.log('Followers file has been written successfully.');
+          console.log(name, 'file has been written successfully.');
         }
       });
     }

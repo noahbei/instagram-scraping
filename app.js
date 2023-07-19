@@ -19,18 +19,13 @@ const chromeDriverPath = 'C:/Users/tromb/webDev/instagram-scraping/chromedriver_
 
 const firefoxOptions = new firefox.Options();
 const chromeOptions = new chrome.Options();
-//chromeOptions.addArguments(`user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36`);
 
-// Set the path to the Firefox binary (optional)
+// Set the path to the browser binary (optional)
 // firefoxOptions.setBinary('path/to/firefox');
-
-// Set the path to the Chrome binary (optional)
 // chromeOptions.setBinary('path/to/chrome');
 
-// Uncomment the following line if you want to run Firefox in headless mode
+// Uncomment the following lines if you want to run in headless mode
 // firefoxOptions.headless();
-
-// Uncomment the following line if you want to run Chrome in headless mode
 // chromeOptions.headless();
 
 const followersArr = [];
@@ -42,9 +37,9 @@ let follower = {};
 
 (async () => {
   const driver = await new Builder()
-  //.forBrowser('firefox')
+  .forBrowser('firefox')
   // Use the following line for Chrome browser
-  .forBrowser('chrome')
+  //.forBrowser('chrome')
   .setFirefoxOptions(firefoxOptions)
   .setChromeOptions(chromeOptions)
   .setFirefoxService(new firefox.ServiceBuilder(geckoDriverPath))
@@ -53,17 +48,18 @@ let follower = {};
 
   try {
     await driver.get("https://www.instagram.com");
+    
     //for login page
     const usernameField = await driver.wait(until.elementLocated(By.name('username')), 10000, "Login page failed to load in time, could not find username field");
-    await driver.sleep(1000);
+    await driver.sleep(getRandomInt(1500, 3000));
     await usernameField.sendKeys(username);
     const  passwordField = await driver.wait(until.elementLocated(By.name('password')), 10000, "could not find password field");
-    await driver.sleep(1000);
+    await driver.sleep(getRandomInt(1500, 3000));
     await passwordField.sendKeys(password);
     const submitButton = await driver.wait(until.elementLocated(By.css("[type='submit']")), 10000, "Could not find Log in button");
-    await driver.sleep(2000);
+    await driver.sleep(getRandomInt(2000, 4000));
     await submitButton.click();
-    await driver.sleep(5000);
+    await driver.sleep(getRandomInt(5000, 6000));
 
     //need to wait until user is authenticated
     //navigate to profile page
@@ -75,19 +71,22 @@ let follower = {};
     const numbers = await driver.findElements(By.css('span._ac2a'));
     const numFollowers = await numbers[1].getText();
     const numFollowing = await numbers[2].getText();
-    await driver.sleep(2000);
+    await driver.sleep(getRandomInt(2000, 4000));
     //check to make sure numbers are correct
     console.log(`followers: ${numFollowers}, following: ${numFollowing}`);
 
     //open follower window
     await numbers[1].click();
-    await driver.sleep(6000);
+    await driver.sleep(getRandomInt(5000, 7000));
 
     //initialize elements
+    let divContainer;
+    let topContainer;
+    let elements;
     try {
-      let divContainer = await driver.findElement(By.css('div._aano'));
-      let topContainer = await driver.findElement(By.css('div._aano :first-child'));
-      let elements = await topContainer.findElements(By.css('.x9f619.xjbqb8w.x78zum5.x168nmei.x13lgxp2.x5pf9jr.xo71vjh.x1uhb9sk.x1plvlek.xryxfnj.x1iyjqo2.x2lwn1j.xeuugli.xdt5ytf.xqjyukv.x1cy8zhl.x1oa3qoh.x1nhvcw1'));
+      divContainer = await driver.findElement(By.css('div._aano'));
+      topContainer = await driver.findElement(By.css('div._aano :first-child'));
+      elements = await topContainer.findElements(By.css('.x9f619.xjbqb8w.x78zum5.x168nmei.x13lgxp2.x5pf9jr.xo71vjh.x1uhb9sk.x1plvlek.xryxfnj.x1iyjqo2.x2lwn1j.xeuugli.xdt5ytf.xqjyukv.x1cy8zhl.x1oa3qoh.x1nhvcw1'));
     } catch (error) {
       console.log("Could not find divContainer or elements", error);
       await driver.quit();
@@ -99,9 +98,9 @@ let follower = {};
       try {
         if (elements.length >= numUsers)
           return;
-        await driver.executeScript("arguments[0].scrollBy(0, 1200)", divContainer);
+        await driver.executeScript("arguments[0].scrollBy(0, 1000)", divContainer);
         elements = await topContainer.findElements(By.css('.x9f619.xjbqb8w.x78zum5.x168nmei.x13lgxp2.x5pf9jr.xo71vjh.x1uhb9sk.x1plvlek.xryxfnj.x1iyjqo2.x2lwn1j.xeuugli.xdt5ytf.xqjyukv.x1cy8zhl.x1oa3qoh.x1nhvcw1'));
-        await driver.sleep(4000);
+        await driver.sleep(getRandomInt(3000, 6000));
         await scrollDiv(numUsers);
       }
       catch (error) {
@@ -147,11 +146,11 @@ let follower = {};
     //close followers window
     let closeButton = await driver.findElement(By.css("button._abl-"))
     await closeButton.click();
-    await driver.sleep(2000);
+    await driver.sleep(getRandomInt(2000, 4000));
 
     //open following window
     await numbers[2].click();
-    await driver.sleep(6000);
+    await driver.sleep(getRandomInt(5000, 7000));
     
     //reset the elements for followingArr
     divContainer = await driver.findElement(By.css('div._aano'));
@@ -202,3 +201,9 @@ let follower = {};
     await driver.quit();
   }
 })();
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
+}

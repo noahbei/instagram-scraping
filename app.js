@@ -19,6 +19,8 @@ const chromeDriverPath = 'C:/Users/tromb/webDev/instagram-scraping/chromedriver_
 
 const firefoxOptions = new firefox.Options();
 const chromeOptions = new chrome.Options();
+//chromeOptions.addArguments(`user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36`);
+
 // Set the path to the Firefox binary (optional)
 // firefoxOptions.setBinary('path/to/firefox');
 
@@ -65,6 +67,7 @@ let follower = {};
 
     //need to wait until user is authenticated
     //navigate to profile page
+    //await driver.wait(until.elementIsDisabled(submitButton), 5000, "submitButton never disabled");
     await driver.get("https://www.instagram.com/" + username + "/");
 
     //get number of followers and following
@@ -81,9 +84,16 @@ let follower = {};
     await driver.sleep(6000);
 
     //initialize elements
-    let divContainer = await driver.findElement(By.css('div._aano'));
-    let topContainer = await driver.findElement(By.css('div._aano :first-child'));
-    let elements = await topContainer.findElements(By.css('.x9f619.xjbqb8w.x78zum5.x168nmei.x13lgxp2.x5pf9jr.xo71vjh.x1uhb9sk.x1plvlek.xryxfnj.x1iyjqo2.x2lwn1j.xeuugli.xdt5ytf.xqjyukv.x1cy8zhl.x1oa3qoh.x1nhvcw1'));
+    try {
+      let divContainer = await driver.findElement(By.css('div._aano'));
+      let topContainer = await driver.findElement(By.css('div._aano :first-child'));
+      let elements = await topContainer.findElements(By.css('.x9f619.xjbqb8w.x78zum5.x168nmei.x13lgxp2.x5pf9jr.xo71vjh.x1uhb9sk.x1plvlek.xryxfnj.x1iyjqo2.x2lwn1j.xeuugli.xdt5ytf.xqjyukv.x1cy8zhl.x1oa3qoh.x1nhvcw1'));
+    } catch (error) {
+      console.log("Could not find divContainer or elements", error);
+      await driver.quit();
+      await process.exit();
+    }
+
 
     const scrollDiv = async (numUsers) => {
       try {

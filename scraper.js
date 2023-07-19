@@ -3,22 +3,18 @@ const { Builder, By, Key, until } = require('selenium-webdriver');
 const firefox = require('selenium-webdriver/firefox');
 const chrome = require('selenium-webdriver/chrome');
 
-//const username = "";
-//const password = "";
+const username = "";
+const password = "";
 
 //test account 1
-const username = ""
-const password = ""
+//const username = ""
+//const password = ""
 
 //test account 2
 //const username = ""
 //const password = "23"
 
-const geckoDriverPath = 'C:/Users/tromb/webDev/instagram-scraping/geckodriver-v0.33.0-win64/geckodriver.exe';
-const chromeDriverPath = 'C:/Users/tromb/webDev/instagram-scraping/chromedriver_win32/chromedriver.exe';
 
-const firefoxOptions = new firefox.Options();
-const chromeOptions = new chrome.Options();
 
 // Set the path to the browser binary (optional)
 // firefoxOptions.setBinary('path/to/firefox');
@@ -28,14 +24,22 @@ const chromeOptions = new chrome.Options();
 // firefoxOptions.headless();
 // chromeOptions.headless();
 
-const followersArr = [];
-const followingArr = [];
-const overlapArr = [];
-let onlyInFollowers = [];
-let onlyInFollowing = [];
-let follower = {};
 
-(async () => {
+
+exports.scrapeData = async (username, password) => {
+  const geckoDriverPath = 'C:/Users/tromb/webDev/instagram-scraping/geckodriver-v0.33.0-win64/geckodriver.exe';
+  const chromeDriverPath = 'C:/Users/tromb/webDev/instagram-scraping/chromedriver_win32/chromedriver.exe';
+
+  const firefoxOptions = new firefox.Options();
+  const chromeOptions = new chrome.Options();
+
+  const followersArr = [];
+  const followingArr = [];
+  const overlapArr = [];
+  let onlyInFollowers = [];
+  let onlyInFollowing = [];
+  let follower = {};
+
   const driver = await new Builder()
   .forBrowser('firefox')
   // Use the following line for Chrome browser
@@ -200,7 +204,7 @@ let follower = {};
     await driver.sleep(2000);
     await driver.quit();
   }
-})();
+}
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);

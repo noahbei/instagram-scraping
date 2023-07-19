@@ -9,6 +9,7 @@
   "author": "noahbei",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.18.2",
     "selenium-webdriver": "^4.10.0"
   }
 }

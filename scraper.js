@@ -3,9 +3,6 @@ const { Builder, By, Key, until } = require('selenium-webdriver');
 const firefox = require('selenium-webdriver/firefox');
 const chrome = require('selenium-webdriver/chrome');
 
-const username = "";
-const password = "";
-
 //test account 1
 //const username = ""
 //const password = ""
@@ -14,29 +11,18 @@ const password = "";
 //const username = ""
 //const password = "23"
 
-
-
-// Set the path to the browser binary (optional)
-// firefoxOptions.setBinary('path/to/firefox');
-// chromeOptions.setBinary('path/to/chrome');
-
-// Uncomment the following lines if you want to run in headless mode
-// 
-// chromeOptions.headless();
-
-
-
 exports.scrapeData = async (username, password) => {
   if (!fs.existsSync("output"))
     fs.mkdirSync("output");
   
-  const geckoDriverPath = 'C:/Users/tromb/webDev/instagram-scraping/geckodriver-v0.33.0-win64/geckodriver.exe';
-  const chromeDriverPath = 'C:/Users/tromb/webDev/instagram-scraping/chromedriver_win32/chromedriver.exe';
+  const geckoDriverPath = __dirname + '/geckodriver-v0.33.0-win64/geckodriver.exe';
+  const chromeDriverPath = __dirname + '/chromedriver_win32/chromedriver.exe';
 
   const firefoxOptions = new firefox.Options();
   const chromeOptions = new chrome.Options();
   firefoxOptions.headless();
-  
+  chromeOptions.headless();
+
   const followersArr = [];
   const followingArr = [];
   const overlapArr = [];

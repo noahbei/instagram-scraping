@@ -21,18 +21,22 @@ const password = "";
 // chromeOptions.setBinary('path/to/chrome');
 
 // Uncomment the following lines if you want to run in headless mode
-// firefoxOptions.headless();
+// 
 // chromeOptions.headless();
 
 
 
 exports.scrapeData = async (username, password) => {
+  if (!fs.existsSync("output"))
+    fs.mkdirSync("output");
+  
   const geckoDriverPath = 'C:/Users/tromb/webDev/instagram-scraping/geckodriver-v0.33.0-win64/geckodriver.exe';
   const chromeDriverPath = 'C:/Users/tromb/webDev/instagram-scraping/chromedriver_win32/chromedriver.exe';
 
   const firefoxOptions = new firefox.Options();
   const chromeOptions = new chrome.Options();
-
+  firefoxOptions.headless();
+  
   const followersArr = [];
   const followingArr = [];
   const overlapArr = [];
@@ -187,7 +191,7 @@ exports.scrapeData = async (username, password) => {
   } 
   finally {
     const writeFile = (name, array) => {
-      fs.writeFile(name + '.json', JSON.stringify(array, null, 2), (err) => {
+      fs.writeFile('output/' + name + '.json', JSON.stringify(array, null, 2), (err) => {
         if (err) {
           console.error('Error writing', name, 'file:', err);
         } else {

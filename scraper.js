@@ -120,7 +120,6 @@ exports.scrapeData = async (username, password) => {
   let overlapArr = [];
   let onlyInFollowers = [];
   let onlyInFollowing = [];
-  let follower = {};
 
   const driver = await new Builder()
   .forBrowser('firefox')

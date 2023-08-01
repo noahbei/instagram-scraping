@@ -44,6 +44,7 @@ app.listen(port, () => {
 
 async function compressFiles(fileList, zipFileName) {
     const archiver = require("archiver");
+    const fs = require("fs");
     const outputFilePath = __dirname + "/output/" + zipFileName;
 
     const output = fs.createWriteStream(outputFilePath);

@@ -33,6 +33,15 @@ body {
   background-color: hsl(274, 65%, 60%);
 }
 
+.center-logo {
+display: flex;
+  align-items: center;
+}
+
+.center-logo span {
+  margin-left: 5px;
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

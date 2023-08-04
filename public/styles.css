@@ -32,3 +32,19 @@ body {
 .btn-color:hover {
   background-color: hsl(274, 65%, 60%);
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.content-container {
+  background-color: red;
+  border: 5px solid black;
+  width: 200px;
+  height: 200px;
+}

@@ -48,3 +48,13 @@ body {
   width: 200px;
   height: 200px;
 }
+
+.user-card {
+  margin: 5px 0;
+  border-radius: 20px;
+  background-color: beige;
+}
+
+.user-card > * {
+  margin: 0 10px;
+}

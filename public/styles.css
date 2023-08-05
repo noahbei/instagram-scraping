@@ -43,19 +43,21 @@ display: flex;
 }
 
 .grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.grid-container > * {
+  display: inline-block;
 }
 
 .content-container {
   background-color: red;
   border: 5px solid black;
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  min-width: 200px;
+  height: 300px;
+  overflow-y: scroll;
 }
 
 .user-card {

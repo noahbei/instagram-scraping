@@ -23,21 +23,28 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Display</a>
-          </li>
+          
           <li class="nav-item">
             <a class="nav-link" href="#">About</a>
           </li>
           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Display</a>
+            <ul id="display-dropdown" class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">All</a></li>
+              <li><a class="dropdown-item" href="#">Input</a></li>
+              <li><a class="dropdown-item" href="#">Output</a></li>
+              <li><a class="dropdown-item" href="#">Overlap</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Download</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">All Files</a></li>
-              <li><a class="dropdown-item" href="#">Followers</a></li>
-              <li><a class="dropdown-item" href="#">Following</a></li>
-              <li><a class="dropdown-item" href="#">Overlap</a></li>
-              <li><a class="dropdown-item" href="#">Only In Following</a></li>
-              <li><a class="dropdown-item" href="#">Only In Followers</a></li>
+              <li><a class="dropdown-item" href="/download/output.zip">All Files</a></li>
+              <li><a class="dropdown-item" href="/download/followers.json">Followers</a></li>
+              <li><a class="dropdown-item" href="/download/following.json">Following</a></li>
+              <li><a class="dropdown-item" href="/download/overlap.json">Overlap</a></li>
+              <li><a class="dropdown-item" href="/download/onlyInFollowing.json">Only In Following</a></li>
+              <li><a class="dropdown-item" href="/download/onlyInFollowers.json">Only In Followers</a></li>
             </ul>
           </li>
           <li class="nav-item">
@@ -47,12 +54,25 @@
       </div>
     </div>
   </nav>
-  <main class="d-flex align-items-center py-4">
-    <div class="grid-container w-100 m-auto">
-      <div class="content-container">
-
+  <main class=" py-4">
+    <div id="input-container" class="grid-container">
+      <div id="followers" class="content-container">
+        followers
       </div>
-      <div class="content-container">
+      <div id="following" class="content-container">
+        following
+        <div class="user-card">
+          <p>Username</p>
+          <p>Password</p>
+        </div>
+        <div class="user-card">
+          <p>Username</p>
+          <p>Password</p>
+        </div>
+        <div class="user-card">
+          <p>Username</p>
+          <p>Password</p>
+        </div>
         <div class="user-card">
           <p>Username</p>
           <p>Password</p>
@@ -66,14 +86,16 @@
           <p>Password</p>
         </div>
       </div>
-      <div class="content-container">
-
+    </div>
+    <div id="output-container" class="grid-container">
+      <div id="overlap" class="content-container">
+        overlap
       </div>
-      <div class="content-container">
-
+      <div id="onlyInFollowers" class="content-container">
+        onlyinfollowers
       </div>
-      <div class="content-container">
-
+      <div id="onlyInFollowing" class="content-container">
+        onlyinfollowing
       </div>
     </div>
   </main>

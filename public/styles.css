@@ -34,7 +34,7 @@ body {
 }
 
 .center-logo {
-display: flex;
+  display: flex;
   align-items: center;
 }
 
@@ -44,26 +44,43 @@ display: flex;
 
 .grid-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .grid-container > * {
   display: inline-block;
+  margin-bottom: 10px;
 }
 
 .content-container {
-  background-color: red;
+  background-color: grey;
   border: 5px solid black;
-  width: 300px;
-  min-width: 200px;
+  width: 480px;
+  max-width: 480px;
+  min-width: 250px;
   height: 300px;
   overflow-y: scroll;
+}
+
+@media (max-width: 1220px) {
+  .content-container {
+    flex-basis: 50%;
+  }
+}
+
+@media (max-width: 990px) {
+  .content-container {
+    flex-basis: 90%;
+    max-width: 600px;
+  }
 }
 
 .user-card {
   margin: 5px 0;
   border-radius: 20px;
-  background-color: beige;
+  background-color: rgb(196, 238, 254);
 }
 
 .user-card > * {

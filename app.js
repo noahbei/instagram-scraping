@@ -24,13 +24,8 @@ app.post("/", async (req, res) => {
         "onlyInFollowers.json"
     ], "output.zip");
 
-    res.write("<a style='display: block' href='/download/output.zip' download>Download all</a>");
-    res.write("<a style='display: block' href='/download/following.json' download>Download following</a>");
-    res.write("<a style='display: block' href='/download/followers.json' download>Download followers</a>");
-    res.write("<a style='display: block' href='/download/overlap.json' download>Download overlap</a>");
-    res.write("<a style='display: block' href='/download/onlyInFollowing.json' download>Download onlyInFollowing</a>");
-    res.write("<a style='display: block' href='/download/onlyInFollowers.json' download>Download onlyInFollowers</a>");
-    res.send();
+    const file = __dirname + "/results.html"
+    res.sendFile(file);
 })
 
 app.get('/download/:filename', function(req, res){

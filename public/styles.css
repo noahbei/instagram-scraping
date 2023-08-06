@@ -54,24 +54,37 @@ body {
   margin-bottom: 10px;
 }
 
-.content-container {
-  background-color: grey;
-  border: 5px solid black;
+.outer-content-container {
+  position: relative;
   width: 480px;
   max-width: 480px;
   min-width: 250px;
   height: 300px;
+}
+
+.download-button {
+  position: absolute;
+  right: 28px;
+  bottom: 8px;
+}
+
+.content-container {
+  background-color: grey;
+  border: 5px solid black;
+  /* 100% minus the height of the header */
+  height: calc(100% - 35.188px);
+  width: 100%;
   overflow-y: scroll;
 }
 
 @media (max-width: 1220px) {
-  .content-container {
+  .outer-content-container {
     flex-basis: 50%;
   }
 }
 
 @media (max-width: 990px) {
-  .content-container {
+  .outer-content-container {
     flex-basis: 90%;
     max-width: 600px;
   }

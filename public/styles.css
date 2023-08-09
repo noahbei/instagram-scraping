@@ -4,6 +4,13 @@ body {
   background-color: hsl(210, 17%, 90%);
 }
 
+main {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
 .form-signin {
   max-width: 330px;
   padding: 1rem;

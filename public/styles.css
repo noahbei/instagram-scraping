@@ -4,7 +4,7 @@ body {
   background-color: hsl(210, 17%, 90%);
 }
 
-main {
+main.index {
   display: flex;
   flex: 1;
   justify-content: center;

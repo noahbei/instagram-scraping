@@ -33,6 +33,10 @@ app.get('/download/:filename', function(req, res){
     res.download(file);
   });
 
+app.get('/about', function(req, res) {
+    res.sendFile(__dirname + '/about.html')
+})
+
 app.listen(port, () => {
     console.log(`Server started on port ${port}`)
 })

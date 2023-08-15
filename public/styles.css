@@ -106,3 +106,9 @@ main.index {
 .user-card > * {
   margin: 0 10px;
 }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}

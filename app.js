@@ -24,17 +24,20 @@ app.post("/", async (req, res) => {
         "onlyInFollowers.json"
     ], "output.zip");
 
-    const file = __dirname + "/results.html"
-    res.sendFile(file);
+    res.redirect("/results")
 })
 
-app.get('/download/:filename', function(req, res){
+app.get('/download/:filename', (req, res) => {
     const file = __dirname + "/output/" + req.params.filename;
     res.download(file);
   });
 
-app.get('/about', function(req, res) {
-    res.sendFile(__dirname + '/about.html')
+app.get("/results", (req, res) => {
+    res.sendFile(__dirname + "/results.html")
+})
+
+app.get("/about", (req, res) => {
+    res.sendFile(__dirname + "/about.html")
 })
 
 app.listen(port, () => {

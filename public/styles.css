@@ -111,14 +111,47 @@ main.index {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
 }
 
 .elem {
   padding: 20px;
+  max-width: 500px;
 }
 
 .elem.title {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.elem.title > h1 {
+  font-size: 70px;
+}
+
+ol {
+  padding-left: 19px;
+}
+
+@media (max-width: 788px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .elem {
+    justify-self: center;
+  }
+}
+
+@media (max-width: 332px) {
+  .about-grid {
+    grid-template-rows: 1fr repeat(3, 3fr);
+  }
+  .elem.title {
+    height: fit-content;
+  }
+  .elem.title > h1 {
+    font-size: 50px;
+  }
+
 }

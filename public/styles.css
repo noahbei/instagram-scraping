@@ -112,6 +112,7 @@ main.index {
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 20px;
+  max-width: 1150px;
 }
 
 .elem {

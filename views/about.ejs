@@ -1,0 +1,28 @@
+<%- include('partials/header.ejs') %>
+<main class="py-4 d-flex justify-content-center">
+  <div class="about-grid">
+    <div class="elem title">
+      <h1>A b o u t</h1>
+    </div>
+    <div class="elem">
+      <h2>inspiration</h2>
+      <p>I developed this tool because I wanted to know who unfollowed me after I followed them. I knew of other apps that will do this for you, but I did not want to give a third-party my information for fear of being hacked. This led me to develop my own automated solution to this problem.</p>
+    </div>
+    <div class="elem">
+      <h2>technology used</h2>
+      <p>This project uses NodeJS and express for its backend. The data is obtained by running selinium, a web automating framework used for webscrapping, and uses bootstrap for the frontend.</p>
+    </div>
+    <div class="elem">
+      <h2>development journey</h2>
+      <ol>
+        <li>in-browser JavaScript for data collection and processing</li>
+        <li>node+selinium for data collection and processing</li>
+        <li>avoiding instagram restrictions/bot detection</li>
+        <li>add frontend to replace static user auth</li>
+        <li>add bootstrap to make it look good</li>
+        <li>add results page for downloading the output</li>
+      </ol>
+    </div>
+  </div>
+</main>
+<%- include('partials/footer.ejs') %>

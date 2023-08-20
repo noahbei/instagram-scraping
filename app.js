@@ -1,20 +1,22 @@
 const express = require("express");
+const ejs = require("ejs");
 const scrape = require(__dirname + "/scraper.js")
 const app = express();
 const port = 3000
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'));
+app.set('view engine', 'ejs');
 
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/index.html");
+    res.render("index.ejs", {page : "home"})
 })
 
 app.post("/", async (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
     // -- autenticate user --
-    await scrape.scrapeData(username, password);
+    //await scrape.scrapeData(username, password);
 
     await compressFiles([
         "following.json",
@@ -33,11 +35,11 @@ app.get('/download/:filename', (req, res) => {
   });
 
 app.get("/results", (req, res) => {
-    res.sendFile(__dirname + "/results.html")
+    res.render("results.ejs", {page : "results"})
 })
 
 app.get("/about", (req, res) => {
-    res.sendFile(__dirname + "/about.html")
+    res.render("about.ejs", {page : "about"})
 })
 
 app.listen(port, () => {

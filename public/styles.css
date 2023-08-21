@@ -5,7 +5,7 @@ body {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 main.index {
@@ -15,13 +15,9 @@ main.index {
   align-items: center;
 }
 
-main#results-main {
-  display: flex;
-  justify-content: center;
-}
-
 .all-container {
   max-width: 1600px;
+  margin: 0 auto;
 }
 
 .form-signin {

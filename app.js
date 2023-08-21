@@ -1,6 +1,6 @@
 const express = require("express");
 const ejs = require("ejs");
-const fs = require("fs");
+const fs = require("fs").promises;
 const scrape = require(__dirname + "/scraper.js")
 const app = express();
 const port = 3000
@@ -35,16 +35,22 @@ app.get('/download/:filename', (req, res) => {
     res.download(file);
   });
 
-app.get("/results", (req, res) => {
-    fs.readFile(__dirname + "/output/followers.json", "utf8", (err, data) => {
-        if (err) {
-            console.error(err);
-            res.status(500).send("Error reading followers data.");
-            return;
-        }
-        const followers = JSON.parse(data);
-        res.render("results.ejs", {page : "results", followers : followers})
-    })
+app.get("/results", async (req, res) => {
+    const filePaths = [
+        __dirname + "/output/followers.json",
+        __dirname + "/output/following.json",
+        __dirname + "/output/overlap.json",
+        __dirname + "/output/onlyInFollowers.json",
+        __dirname + "/output/onlyInFollowing.json",
+    ]
+    try {
+        const fileContents = await Promise.all(filePaths.map(filepath => fs.readFile(filepath, "utf-8")));
+        const results = fileContents.map(data => JSON.parse(data));
+        res.render("results.ejs", {page : "results", data : results});
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error reading results.");
+    }
 })
 
 app.get("/about", (req, res) => {
@@ -57,6 +63,7 @@ app.listen(port, () => {
 
 async function compressFiles(fileList, zipFileName) {
     const archiver = require("archiver");
+    const fs = require("fs");
     const outputFilePath = __dirname + "/output/" + zipFileName;
 
     const output = fs.createWriteStream(outputFilePath);

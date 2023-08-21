@@ -1,5 +1,6 @@
 const express = require("express");
 const ejs = require("ejs");
+const fs = require("fs");
 const scrape = require(__dirname + "/scraper.js")
 const app = express();
 const port = 3000
@@ -16,7 +17,7 @@ app.post("/", async (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
     // -- autenticate user --
-    //await scrape.scrapeData(username, password);
+    await scrape.scrapeData(username, password);
 
     await compressFiles([
         "following.json",
@@ -35,7 +36,15 @@ app.get('/download/:filename', (req, res) => {
   });
 
 app.get("/results", (req, res) => {
-    res.render("results.ejs", {page : "results"})
+    fs.readFile(__dirname + "/output/followers.json", "utf8", (err, data) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send("Error reading followers data.");
+            return;
+        }
+        const followers = JSON.parse(data);
+        res.render("results.ejs", {page : "results", followers : followers})
+    })
 })
 
 app.get("/about", (req, res) => {
@@ -48,7 +57,6 @@ app.listen(port, () => {
 
 async function compressFiles(fileList, zipFileName) {
     const archiver = require("archiver");
-    const fs = require("fs");
     const outputFilePath = __dirname + "/output/" + zipFileName;
 
     const output = fs.createWriteStream(outputFilePath);

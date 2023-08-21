@@ -4,11 +4,24 @@ body {
   background-color: hsl(210, 17%, 90%);
 }
 
+.hidden {
+  display: none;
+}
+
 main.index {
   display: flex;
   flex: 1;
   justify-content: center;
   align-items: center;
+}
+
+main#results-main {
+  display: flex;
+  justify-content: center;
+}
+
+.all-container {
+  max-width: 1600px;
 }
 
 .form-signin {

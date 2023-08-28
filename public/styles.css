@@ -71,6 +71,8 @@ main.index {
 }
 
 .outer-content-container {
+  display: flex;
+  flex-direction: column;
   position: relative;
   width: 480px;
   max-width: 480px;
@@ -87,8 +89,6 @@ main.index {
 .content-container {
   background-color: grey;
   border: 5px solid black;
-  /* 100% minus the height of the header */
-  height: calc(100% - 35.188px);
   width: 100%;
   overflow-y: scroll;
 }

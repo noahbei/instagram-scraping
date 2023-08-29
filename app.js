@@ -48,8 +48,9 @@ app.get("/results", async (req, res) => {
         const results = fileContents.map(data => JSON.parse(data));
         res.render("results.ejs", {page : "results", data : results});
     } catch (error) {
-        console.error(error);
-        res.status(500).send("Error reading results.");
+        //send error to log
+        //console.error(error);
+        res.status(500).render("error.ejs", {page: "home"});
     }
 })
 
@@ -72,14 +73,28 @@ async function compressFiles(fileList, zipFileName) {
     });
 
     output.on("close", () => {
-        console.log(archive.pointer() + " total bytes");
+        if (errorSize === fileList.length)
+            fs.unlink(outputFilePath, (err) => {if(err) console.log("could not delete output.zip")});
+        else
+            console.log(archive.pointer() + " total bytes");
     });
 
     archive.pipe(output);
-
+    let errorStr = "";
+    let errorSize = 0;
     for (const file of fileList) {
-        const filePath = __dirname + "/output/" + file;
-        archive.append(fs.createReadStream(filePath), { name: file });
+        try {
+            const filePath = __dirname + "/output/" + file;
+            await fs.promises.access(filePath, fs.constants.F_OK);
+            archive.append(fs.createReadStream(filePath), { name: file });
+        } catch (error) {
+            errorStr += file + ", ";
+            errorSize++;
+        }
+    }
+    if (errorStr !== "") {
+        errorStr = errorStr.slice(0, -2);
+        console.error(`The file(s) ${errorStr} do not exist or cannot be accessed.`)
     }
 
     archive.finalize();

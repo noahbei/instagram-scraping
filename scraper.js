@@ -121,17 +121,17 @@ exports.scrapeData = async (username, password) => {
   let onlyInFollowers = [];
   let onlyInFollowing = [];
 
-  const driver = await new Builder()
-  .forBrowser('firefox')
-  // Use the following line for Chrome browser
-  //.forBrowser('chrome')
-  .setFirefoxOptions(firefoxOptions)
-  .setChromeOptions(chromeOptions)
-  .setFirefoxService(new firefox.ServiceBuilder(geckoDriverPath))
-  .setChromeService(new chrome.ServiceBuilder(chromeDriverPath))
-  .build();
-
   try {
+    const driver = await new Builder()
+    .forBrowser('firefox')
+    // Use the following line for Chrome browser
+    //.forBrowser('chrome')
+    .setFirefoxOptions(firefoxOptions)
+    .setChromeOptions(chromeOptions)
+    .setFirefoxService(new firefox.ServiceBuilder(geckoDriverPath))
+    .setChromeService(new chrome.ServiceBuilder(chromeDriverPath))
+    .build();
+
     await login(driver, username, password);
 
     //need to wait until user is authenticated
@@ -187,17 +187,21 @@ exports.scrapeData = async (username, password) => {
     followingArr = await pushToUserArray(elements);
     await driver.sleep(2000);
 
+    //exit the webdriver session
+    await driver.quit();
+    
     //overlap = analyzeArrays(followingArr, followersArr);
     [onlyInFollowing, onlyInFollowers, overlapArr] = compareArrays(followingArr, followersArr);
-  } 
-  finally {
+
+    //write arrays to files
     writeFile('followers', followersArr);
     writeFile('following', followingArr);
     writeFile('overlap', overlapArr);
     writeFile('onlyInFollowing', onlyInFollowing);
     writeFile('onlyInFollowers', onlyInFollowers);
-
-    await driver.quit();
+  }
+  catch (error) {
+    console.error('An error occured during scraping:', error.message);
   }
 }
 

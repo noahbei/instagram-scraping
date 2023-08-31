@@ -2,6 +2,7 @@ const fs = require('fs');
 const { Builder, By, Key, until } = require('selenium-webdriver');
 const firefox = require('selenium-webdriver/firefox');
 const chrome = require('selenium-webdriver/chrome');
+const edge = require('selenium-webdriver/edge');
 
 //test account 1
 //const username = ""
@@ -109,11 +110,15 @@ exports.scrapeData = async (username, password) => {
   
   const geckoDriverPath = __dirname + '/geckodriver-v0.33.0-win64/geckodriver.exe';
   const chromeDriverPath = __dirname + '/chromedriver_win32/chromedriver.exe';
-
+  const edgeDriverPath = __dirname + '/edgedriver_win64/msedgedriver.exe';
+  
   const firefoxOptions = new firefox.Options();
   const chromeOptions = new chrome.Options();
-  //firefoxOptions.headless();
+  const edgeOptions = new edge.Options();
+
+  firefoxOptions.headless();
   chromeOptions.headless();
+  edgeOptions.headless();
 
   let followersArr = [];
   let followingArr = [];
@@ -126,10 +131,13 @@ exports.scrapeData = async (username, password) => {
     .forBrowser('firefox')
     // Use the following line for Chrome browser
     //.forBrowser('chrome')
+    //.forBrowser('MicrosoftEdge')
     .setFirefoxOptions(firefoxOptions)
     .setChromeOptions(chromeOptions)
+    .setEdgeOptions(edgeOptions)
     .setFirefoxService(new firefox.ServiceBuilder(geckoDriverPath))
     .setChromeService(new chrome.ServiceBuilder(chromeDriverPath))
+    .setEdgeService(new edge.ServiceBuilder(edgeDriverPath))
     .build();
 
     await login(driver, username, password);

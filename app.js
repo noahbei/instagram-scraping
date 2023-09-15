@@ -1,9 +1,17 @@
 const express = require("express");
 const ejs = require("ejs");
 const fs = require("fs").promises;
+const path = require("path");
 const scrape = require(__dirname + "/scraper.js")
 const app = express();
 const port = 3000
+const filePaths = [
+    __dirname + "/output/followers.json",
+    __dirname + "/output/following.json",
+    __dirname + "/output/overlap.json",
+    __dirname + "/output/onlyInFollowers.json",
+    __dirname + "/output/onlyInFollowing.json",
+]
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'));
@@ -19,30 +27,18 @@ app.post("/", async (req, res) => {
     // -- autenticate user --
     await scrape.scrapeData(username, password);
 
-    await compressFiles([
-        "following.json",
-        "followers.json",
-        "overlap.json",
-        "onlyInFollowing.json",
-        "onlyInFollowers.json"
-    ], "output.zip");
-
     res.redirect("/results")
 })
 
-app.get('/download/:filename', (req, res) => {
+app.get('/download/:filename', async (req, res) => {
     const file = __dirname + "/output/" + req.params.filename;
+    if (req.params.filename === "output.zip") {
+        await compressFiles(filePaths, "output.zip").then(res.download(file));
+    }
     res.download(file);
-  });
+});
 
 app.get("/results", async (req, res) => {
-    const filePaths = [
-        __dirname + "/output/followers.json",
-        __dirname + "/output/following.json",
-        __dirname + "/output/overlap.json",
-        __dirname + "/output/onlyInFollowers.json",
-        __dirname + "/output/onlyInFollowing.json",
-    ]
     try {
         const fileContents = await Promise.all(filePaths.map(filepath => fs.readFile(filepath, "utf-8")));
         const results = fileContents.map(data => JSON.parse(data));
@@ -52,6 +48,11 @@ app.get("/results", async (req, res) => {
         //console.error(error);
         res.status(500).render("error.ejs", {page: "home"});
     }
+})
+
+app.get("/test", (req, res) => {
+    const file = __dirname + "/output/" + "output.zip";
+    res.download(file)
 })
 
 app.get("/about", (req, res) => {
@@ -84,11 +85,12 @@ async function compressFiles(fileList, zipFileName) {
     let errorSize = 0;
     for (const file of fileList) {
         try {
-            const filePath = __dirname + "/output/" + file;
-            await fs.promises.access(filePath, fs.constants.F_OK);
-            archive.append(fs.createReadStream(filePath), { name: file });
+            await fs.promises.access(file, fs.constants.F_OK);
+            const fileName = path.basename(file);
+            console.log(fileName);
+            archive.append(fs.createReadStream(file), { name: fileName });
         } catch (error) {
-            errorStr += file + ", ";
+            errorStr += fileName;
             errorSize++;
         }
     }
@@ -97,5 +99,5 @@ async function compressFiles(fileList, zipFileName) {
         console.error(`The file(s) ${errorStr} do not exist or cannot be accessed.`)
     }
 
-    archive.finalize();
+    await archive.finalize();
 }

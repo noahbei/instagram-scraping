@@ -3,8 +3,15 @@
   <div class="all-container">
     <div id="input-container" class="grid-container">
       <div class="outer-content-container">
-        <h4>Followers</h4>
-        <a role="button" class="btn btn-dark download-button" href="/download/followers.json" aria-label="Download the followers data in JSON format" download>Download</a>
+        <div class="content-top-div">
+          <h3>Followers</h3>
+          <a role="button" class="download-button" href="/download/followers.json" aria-label="Download the followers data in JSON format" download>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+              <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+            </svg>
+          </a>
+        </div>
         <div id="followers" class="content-container">
           <% for (const user of data[0]) {%>
             <div class="user-card">
@@ -15,8 +22,15 @@
         </div>
       </div>
       <div class="outer-content-container">
-        <h4>Following</h4>
-        <a role="button" class="btn btn-dark download-button" href="/download/following.json" aria-label="Download the following data in JSON format" download>Download</a>
+        <div class="content-top-div">
+          <h3>Following</h3>
+          <a role="button" class="download-button" href="/download/following.json" aria-label="Download the following data in JSON format" download>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+              <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+            </svg>
+          </a>
+        </div>
         <div id="following" class="content-container">
           <% for (const user of data[1]) {%>
             <div class="user-card">
@@ -29,8 +43,15 @@
     </div>
     <div id="output-container" class="grid-container">
       <div class="outer-content-container">
-        <h4>overlap</h4>
-        <a role="button" class="btn btn-dark download-button" href="/download/overlap.json" aria-label="Download the overlap data in JSON format" download>Download</a>
+        <div class="content-top-div">
+          <h3>Overlap</h3>
+          <a role="button" class="download-button" href="/download/overlap.json" aria-label="Download the overlap data in JSON format" download>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+              <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+            </svg>
+          </a>
+        </div>
         <div id="overlap" class="content-container">
           <% for (const user of data[2]) {%>
             <div class="user-card">
@@ -41,8 +62,15 @@
         </div>
       </div>
       <div id="onlyInFollowersDiv" class="outer-content-container">
-        <h4>onlyinfollowers</h4>
-        <a role="button" class="btn btn-dark download-button" href="/download/onlyInFollowers.json" aria-label="Download the only in followers data in JSON format" download>Download</a>
+        <div class="content-top-div">
+          <h3>Only In Followers</h3>
+          <a role="button" class="download-button" href="/download/onlyInFollowers.json" aria-label="Download the only in followers data in JSON format" download>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+              <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+            </svg>
+          </a>
+        </div>
         <div id="onlyInFollowers" class="content-container">
           <% for (const user of data[3]) {%>
             <div class="user-card">
@@ -53,8 +81,15 @@
         </div>
       </div>
       <div id="onlyInFollowingDiv" class="outer-content-container">
-        <h4>onlyinfollowing</h4>
-        <a role="button" class="btn btn-dark download-button" href="/download/onlyInFollowing.json" aria-label="Download the only in following data in JSON format" download>Download</a>
+        <div class="content-top-div">
+          <h3>Only In Following</h3>
+          <a role="button" class="download-button" href="/download/onlyInFollowing.json" aria-label="Download the only in following data in JSON format" download>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+              <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+            </svg>
+          </a>
+        </div>
         <div id="onlyInFollowing" class="content-container">
           <% for (const user of data[4]) {%>
             <div class="user-card">

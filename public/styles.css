@@ -1,18 +1,52 @@
+:root {
+  --text: #0e0119;
+  --bg: #f3f3f3;
+  --primary: #7A3AAF;
+  --secondary: #fec3dd;
+  --accent: #f70713;
+  --grey: #dddddd;
+  --primarycontrast: #ffdd00;
+  --secondarycontrast: #64d97b;
+  --accentcontrast: #ff8f8f;
+  --textcontrast: #64d97b;
+  --bgcontrast: #64d97b;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --text: #ffffff;
+    --bg: #0e0119;
+    --primary: #7A3AAF;
+    --secondary: #280112;
+    --accent: #fc9ba0;
+    --primarycontrast: #ffdd00;
+    --secondarycontrast: #64d97b;
+    --accentcontrast: #64d97b;
+    --textcontrast: #64d97b;
+    --bgcontrast: #64d97b;
+}
+} */
+
 html,
 body {
   height: 100%;
-  background-color: hsl(210, 17%, 90%);
+  background-color: var(--bg);
+}
+
+nav {
+  background-color: var(--primary);
+}
+
+h1, h2, h3, h4, h5, li, p {
+  color: var(--text) !important;
 }
 
 .hidden {
   display: none !important;
 }
 
-main.index {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
+main {
+  padding: 20px 0;
 }
 
 .all-container {
@@ -42,11 +76,12 @@ main.index {
 }
 
 .btn-color {
-  background-color: hsl(274, 65%, 67%);
+  background-color: var(--primary);
 }
 
 .btn-color:hover {
-  background-color: hsl(274, 65%, 60%);
+  background-color: var(--primary);
+  opacity: .9;
 }
 
 .center-logo {
@@ -71,26 +106,43 @@ main.index {
 }
 
 .outer-content-container {
+  /* flex makes sure the content doesn't spill? */
   display: flex;
   flex-direction: column;
-  position: relative;
+  align-items: center;
+  background-color: var(--secondary);
+  border: 5px solid black;
+  border-radius: 50px;
   width: 480px;
   max-width: 480px;
   min-width: 250px;
   height: 300px;
+  overflow: hidden;
+}
+
+.content-top-div {
+  display: flex;
+}
+
+.content-top-div > h3 {
+  margin: .2rem;
 }
 
 .download-button {
-  position: absolute;
-  right: 28px;
-  bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 5px;
+  color: var(--text);
 }
 
 .content-container {
-  background-color: grey;
-  border: 5px solid black;
   width: 100%;
   overflow-y: scroll;
+}
+
+.content-container::-webkit-scrollbar {
+  display: none;
 }
 
 @media (max-width: 1220px) {
@@ -109,7 +161,7 @@ main.index {
 .user-card {
   margin: 5px 0;
   border-radius: 20px;
-  background-color: rgb(196, 238, 254);
+  background-color: var(--grey);
 }
 
 .user-card > * {

@@ -2,6 +2,7 @@ const express = require("express");
 const ejs = require("ejs");
 const fs = require("fs").promises;
 const path = require("path");
+const archiver = require("archiver");
 const scrape = require(__dirname + "/scraper.js")
 const app = express();
 const port = 3000
@@ -33,7 +34,7 @@ app.post("/", async (req, res) => {
 app.get('/download/:filename', async (req, res) => {
     const file = __dirname + "/output/" + req.params.filename;
     if (req.params.filename === "output.zip") {
-        await compressFiles(filePaths, "output.zip").then(res.download(file));
+        await compressFiles(filePaths, "output.zip");
     }
     res.download(file);
 });
@@ -64,10 +65,10 @@ app.listen(port, () => {
 })
 
 async function compressFiles(fileList, zipFileName) {
-    const archiver = require("archiver");
     const fs = require("fs");
     const outputFilePath = __dirname + "/output/" + zipFileName;
 
+    return new Promise((resolve, reject) => {
     const output = fs.createWriteStream(outputFilePath);
     const archive = archiver("zip", {
         zlib: { level: 9 }
@@ -78,6 +79,7 @@ async function compressFiles(fileList, zipFileName) {
             fs.unlink(outputFilePath, (err) => {if(err) console.log("could not delete output.zip")});
         else
             console.log(archive.pointer() + " total bytes");
+        resolve();
     });
 
     archive.pipe(output);
@@ -85,7 +87,7 @@ async function compressFiles(fileList, zipFileName) {
     let errorSize = 0;
     for (const file of fileList) {
         try {
-            await fs.promises.access(file, fs.constants.F_OK);
+            fs.promises.access(file, fs.constants.F_OK);
             const fileName = path.basename(file);
             console.log(fileName);
             archive.append(fs.createReadStream(file), { name: fileName });
@@ -99,5 +101,6 @@ async function compressFiles(fileList, zipFileName) {
         console.error(`The file(s) ${errorStr} do not exist or cannot be accessed.`)
     }
 
-    await archive.finalize();
+    archive.finalize();
+    });
 }

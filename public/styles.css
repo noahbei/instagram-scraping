@@ -1,31 +1,21 @@
 :root {
-  --text: #0e0119;
-  --bg: #f3f3f3;
+  --text: #0a0a0a;
+  --bg: #fcfcfc;
   --primary: #7A3AAF;
-  --secondary: #fec3dd;
-  --accent: #f70713;
+  --secondary: #dedede;
+  --accent: #797779;
   --grey: #dddddd;
-  --primarycontrast: #ffdd00;
-  --secondarycontrast: #64d97b;
-  --accentcontrast: #ff8f8f;
-  --textcontrast: #64d97b;
-  --bgcontrast: #64d97b;
 }
 
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: x) {
   :root {
-    --text: #ffffff;
-    --bg: #0e0119;
+    --text: #fcfcfc;
+    --bg: #0a0a0a;
     --primary: #7A3AAF;
-    --secondary: #280112;
-    --accent: #fc9ba0;
-    --primarycontrast: #ffdd00;
-    --secondarycontrast: #64d97b;
-    --accentcontrast: #64d97b;
-    --textcontrast: #64d97b;
-    --bgcontrast: #64d97b;
+    --secondary: #121212;
+    --accent: #c5c4c5;
 }
-} */
+}
 
 html,
 body {
@@ -110,7 +100,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--secondary);
+  background-color: var(--accent);
   border: 5px solid black;
   border-radius: 50px;
   width: 480px;
@@ -161,7 +151,7 @@ main {
 .user-card {
   margin: 5px 0;
   border-radius: 20px;
-  background-color: var(--grey);
+  background-color: var(--secondary);
 }
 
 .user-card > * {

@@ -78,4 +78,4 @@ Additionally, you can download the output as .json files through the menu at the
 (Insert screenshots or links to screenshots here)
 
 ## License
-This project is licensed under the ___ License - see the LICENSE file for details.
+This project is licensed under the [Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/) License - see the [LICENSE](LISENCE) file for details.

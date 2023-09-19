@@ -55,15 +55,15 @@ npm run start
 ## How It Works
 Insta-compare provides three key sections (plus the 2 input) for analyzing your Instagram network:
 
-**Following:** This section displays the list of accounts you follow.
-
-**Followers:** Here, you can see the list of accounts that follow you.
-
-**Only In Following:** This section displays the accounts you follow but who don't follow you back.
-
-**Only In Followers:** Here, you can see the accounts following you that you don't follow back.
-
-**Overlap:** This section shows the accounts you both follow and who follow you.
+> **Following:** This section displays the list of accounts you follow.
+>
+> **Followers:** Here, you can see the list of accounts that follow you.
+>
+> **Only In Following:** This section displays the accounts you follow but who don't follow you back.
+>
+> **Only In Followers:** Here, you can see the accounts following you that you don't follow back.
+>
+> **Overlap:** This section shows the accounts you both follow and who follow you.
 
 You can switch between these sections using a toggle at the top of the page.
 

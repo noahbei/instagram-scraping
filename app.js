@@ -17,6 +17,7 @@ app.post("/", async (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
     // -- autenticate user --
+    try {
     await scrape.scrapeData(username, password);
 
     await compressFiles([
@@ -26,7 +27,11 @@ app.post("/", async (req, res) => {
         "onlyInFollowing.json",
         "onlyInFollowers.json"
     ], "output.zip");
-
+    }
+    catch (err) {
+        console.log("Error during / post: " + err)
+        res.redirect("/")
+    }
     res.redirect("/results")
 })
 

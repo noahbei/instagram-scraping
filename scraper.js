@@ -4,14 +4,6 @@ const firefox = require('selenium-webdriver/firefox');
 const chrome = require('selenium-webdriver/chrome');
 const edge = require('selenium-webdriver/edge');
 
-//test account 1
-//const username = ""
-//const password = ""
-
-//test account 2
-//const username = ""
-//const password = "23"
-
 const login = async (driver, username, password) => {
   await driver.get("https://www.instagram.com");
   const usernameField = await driver.wait(until.elementLocated(By.name('username')), 10000, "Login page failed to load in time, could not find username field");

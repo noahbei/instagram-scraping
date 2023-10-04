@@ -72,7 +72,7 @@ Additionally, you can download the output as .json files through the menu at the
 ## Important Notes
 - The web scraping process can be slow due to the need to mimic human behavior to avoid bot detection. Please be patient during the scraping process.
 
-- Ensure you have a stable internet connection for the best performance.
+- Ensure you have a stable internet connection for the best performance. This will not work if you have a slow internet connection.
 
 ## Screenshots
 (Insert screenshots or links to screenshots here)

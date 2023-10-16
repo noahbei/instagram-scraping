@@ -70,7 +70,7 @@ You can switch between these sections using a toggle at the top of the page.
 Additionally, you can download the output as .json files through the menu at the top of the page or directly from the display divs.
 
 ## Important Notes
-- The web scraping process can be slow due to the need to mimic human behavior to avoid bot detection. Please be patient during the scraping process.
+- The web scraping process can be slow due to the need to mimic human behavior to avoid bot detection/action blocks. Please be patient during the scraping process.
 
 - Ensure you have a stable internet connection for the best performance. This will not work if you have a slow internet connection.
 

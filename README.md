@@ -77,9 +77,9 @@ Additionally, you can download the output as .json files through the menu at the
 ## Screenshots
 
 ![login screen](https://github.com/noahbei/instagram-scraping/blob/example-images/example-images/login%20screen.png?raw=true)
-![login screen](https://github.com/noahbei/instagram-scraping/blob/example-images/example-images/scraping%20page.png?raw=true)
-![login screen](https://github.com/noahbei/instagram-scraping/blob/example-images/example-images/output%20page.png?raw=true)
-![login screen](https://github.com/noahbei/instagram-scraping/blob/example-images/example-images/output%20page%20responsive.png?raw=true)
+![scraping screen](https://github.com/noahbei/instagram-scraping/blob/example-images/example-images/scraping%20page.png?raw=true)
+![output screen](https://github.com/noahbei/instagram-scraping/blob/example-images/example-images/output%20page.png?raw=true)
+![responsive output screen](https://github.com/noahbei/instagram-scraping/blob/example-images/example-images/output%20page%20responsive.png?raw=true)
 
 ## License
 This project is licensed under the [Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/) License - see the [LICENSE](LISENCE) file for details.

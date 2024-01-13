@@ -74,6 +74,13 @@ Additionally, you can download the output as .json files through the menu at the
 
 - Ensure you have a stable internet connection for the best performance. This will not work if you have a slow internet connection.
 
+- In the case of any errors during scraping, remove the headless option from [`scraper.js`](/scraper.js) to debug.
+```javascript
+  //firefoxOptions.headless();
+  //chromeOptions.headless();
+  //edgeOptions.headless();
+```
+
 ## Screenshots
 <table>
   <tr>

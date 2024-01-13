@@ -74,8 +74,25 @@ Additionally, you can download the output as .json files through the menu at the
 
 - Ensure you have a stable internet connection for the best performance. This will not work if you have a slow internet connection.
 
+- In the case of any errors during scraping, remove the headless option from [`scraper.js`](/scraper.js) to debug.
+```javascript
+  //firefoxOptions.headless();
+  //chromeOptions.headless();
+  //edgeOptions.headless();
+```
+
 ## Screenshots
-(Insert screenshots or links to screenshots here)
+<table>
+  <tr>
+    <td><img src="https://github.com/noahbei/instagram-scraping/blob/example-images/example-images/login%20screen.png?raw=true" alt="login screen"></td>
+    <td><img src="https://github.com/noahbei/instagram-scraping/blob/example-images/example-images/scraping%20page.png?raw=true" alt="scraping screen"></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/noahbei/instagram-scraping/blob/example-images/example-images/output%20page%20alternate.png?raw=true" alt="output screen"></td>
+    <td><img src="https://github.com/noahbei/instagram-scraping/blob/example-images/example-images/output%20page%20responsive.png?raw=true" alt="responsive output screen"></td>
+  </tr>
+</table>
+<img src="https://github.com/noahbei/instagram-scraping/blob/example-images/example-images/output%20page.png?raw=true" alt="output screen">
 
 ## License
 This project is licensed under the [Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/) License - see the [LICENSE](LISENCE) file for details.

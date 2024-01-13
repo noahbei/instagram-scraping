@@ -81,7 +81,7 @@ Additionally, you can download the output as .json files through the menu at the
     <td><img src="https://github.com/noahbei/instagram-scraping/blob/example-images/example-images/scraping%20page.png?raw=true" alt="scraping screen"></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/noahbei/instagram-scraping/blob/example-images/example-images/output%20page%20alternative.png?raw=true" alt="output screen"></td>
+    <td><img src="https://github.com/noahbei/instagram-scraping/blob/example-images/example-images/output%20page%20alternate.png?raw=true" alt="output screen"></td>
     <td><img src="https://github.com/noahbei/instagram-scraping/blob/example-images/example-images/output%20page%20responsive.png?raw=true" alt="responsive output screen"></td>
   </tr>
 </table>
